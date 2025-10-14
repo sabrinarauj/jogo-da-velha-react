@@ -1,0 +1,8 @@
+.quadradinho {
+    border: palevioletred 2px solid;
+    border-radius: 20px;
+    width: 200px;
+    height: 200px;
+    display: block;
+    font-size: 50px;
+}
