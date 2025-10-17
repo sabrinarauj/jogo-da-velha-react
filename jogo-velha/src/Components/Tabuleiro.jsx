@@ -8,20 +8,11 @@ function Tabuleiro() {
     const [xProximo, setXProximo] = useState(true)
     const [status, setStatus] = useState("Próximo: X")
 
-
-    setQuadrados(next)
-    setXProximo(!xProximo)
-
     function calcularVencedor(quadrados) { // funçao para calcular o ganhador
         const linhas = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6]
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
         ];
         for (let i = 0; i < linhas.length; i++) {
             const [a, b, c] = linhas[i]
@@ -34,20 +25,17 @@ function Tabuleiro() {
     }
 
     function handleClick(i) {
-
-        if (quadrados[i] !== " " || calcularVencedor(quadrados)) return
+        if (quadrados[i] !== " " || vencedor === null) {
+            if (vencedor === null) {
+                console.log("ganhou ó")
+            }
+        }
 
         const next = quadrados.slice()
         next[i] = xProximo ? "X" : "O"
 
-        setQuadrados(next)
-        setXProximo(next)
-
-        if (xProximo) {
-            next[i] = "X"
-        } else {
-            next[i] = "O"
-        }
+            setQuadrados(next)
+            setXProximo(!xProximo)
 
         const vencedor = calcularVencedor(next)
         if (vencedor) {
@@ -60,6 +48,7 @@ function Tabuleiro() {
     return (
         <>
             <main className="paginaTabuleiro">
+                <section className="tabuleiro">
                 <h2>Jogo da Velha</h2>
                 <div className="fileira">
                     <Quadradinho value={quadrados[0]} onQuadradoClick={() => handleClick(0)} />
@@ -78,6 +67,7 @@ function Tabuleiro() {
                     <Quadradinho value={quadrados[7]} onQuadradoClick={() => handleClick(7)} />
                     <Quadradinho value={quadrados[8]} onQuadradoClick={() => handleClick(8)} />
                 </div>
+                </section>
             </main>
         </>
     )

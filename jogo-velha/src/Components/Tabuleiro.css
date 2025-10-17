@@ -16,9 +16,11 @@ h2 {
 
 .paginaTabuleiro {
     display: flex;
-    flex-direction: column; 
-    background: pink;
+    flex-direction: column;
+    color: black;
+    background: white;
 }
+
 
 .fileira {
     display: flex;
