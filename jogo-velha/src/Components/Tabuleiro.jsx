@@ -6,10 +6,42 @@ function Tabuleiro() {
 
     const [quadrados, setQuadrados] = useState(Array(9).fill(" "))
     const [xProximo, setXProximo] = useState(true)
+    const [status, setStatus] = useState("Próximo: X")
+
+
+    setQuadrados(next)
+    setXProximo(!xProximo)
+
+    function calcularVencedor(quadrados) { // funçao para calcular o ganhador
+        const linhas = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        for (let i = 0; i < linhas.length; i++) {
+            const [a, b, c] = linhas[i]
+            if (quadrados[a] && quadrados[a] === quadrados[b] && quadrados[a] === quadrados[c]) {
+                return quadrados[a]
+            }
+        }
+
+        return null
+    }
 
     function handleClick(i) {
 
+        if (quadrados[i] !== " " || calcularVencedor(quadrados)) return
+
         const next = quadrados.slice()
+        next[i] = xProximo ? "X" : "O"
+
+        setQuadrados(next)
+        setXProximo(next)
 
         if (xProximo) {
             next[i] = "X"
@@ -17,37 +49,13 @@ function Tabuleiro() {
             next[i] = "O"
         }
 
-        setQuadrados(next)
-        setXProximo(!xProximo)
-
-        function calcularVencedor(quadrados) { // funçao para calcular o ganhador
-            const linhas = [
-                [0, 1, 2],
-                [3, 4, 5],
-                [6, 7, 8],
-                [0, 3, 6],
-                [1, 4, 7],
-                [2, 5, 8],
-                [0, 4, 8],
-                [2, 4, 6]
-            ];
-            for (let i = 0; i < linhas.length; i++) {
-                const [a, b, c] = linha[i]
-                if (quadrados[a] && quadrados[a] === quadrados[b] && quadrados[a] === quadrados[c]) {
-                    return quadrados[a]
-                }
-            }
-        }
-
-        const vencedor = calcularVencedor(quadrados) 
-        let status 
+        const vencedor = calcularVencedor(next)
         if (vencedor) {
-            status = 'Vencedor: ' + vencedor
+            setStatus("Vencedor: " + vencedor)
+        } else {
+            setStatus("Próximo: " + (xProximo ? "O" : "X"))
         }
-        else {
-            status = 'Próximo: ' + (xProximo ? 'X' : 'O')
-        }
-    }
+}
 
     return (
         <>
