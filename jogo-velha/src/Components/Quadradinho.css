@@ -1,8 +1,9 @@
 .quadradinho {
-    border: 2px solid;
-    border-radius: 20px;
-    width: 200px;
-    height: 200px;
+    border: 1px solid #fda2bc;
+    border-radius: 10px;
+    width: 160px;
+    height: 160px;
     display: block;
-    font-size: 50px;
+    font-size: 60px;
+    color: #FF1D8D;
 }
